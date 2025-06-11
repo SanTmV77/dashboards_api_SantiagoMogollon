@@ -1,0 +1,23 @@
+# Usa una imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos del proyecto al contenedor
+COPY . .
+
+# Instala las dependencias
+RUN npm install
+
+# Compila la aplicación
+RUN npm run build
+
+# Instala un servidor estático para servir la app compilada
+RUN npm install -g serve
+
+# Expone el puerto 3000 (puedes cambiarlo según tu app)
+EXPOSE 3000
+
+# Comando para ejecutar la app
+CMD ["serve", "-s", "build", "-l", "3000"]
